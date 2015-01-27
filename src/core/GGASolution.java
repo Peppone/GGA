@@ -1,30 +1,39 @@
 package core;
 
+import jmetal.core.Problem;
 import jmetal.core.Solution;
 import jmetal.core.Variable;
-import jmetal.encodings.variable.Int;
 import jmetal.util.JMException;
+import encodings.variable.PermInt;
 
-abstract class GGASolution extends Solution {
+public class GGASolution extends Solution {
 
-	
-	private int[] permutation;
 	
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -4373015671428746086L;
+	
+	/**
+	 * 
+	 */
+
 	public GGASolution(){
 		super();
-		int length=getDecisionVariables().length;
-		permutation=new int[length];
-		for(int i=0;i<length;++i){
-			permutation[i]=i;
-		}
+
 	}
-	private static final long serialVersionUID = 1L;
+	
+	public GGASolution(int num){
+		super(num);
+	}
+	
+	public GGASolution(Problem p) throws ClassNotFoundException{
+		super(p);
+	}
+	
 	
 	public void group(){
-		Variable[] var= (Int[])getDecisionVariables();
+		Variable[] var= (PermInt[])getDecisionVariables();
 		sort(var);
 		
 	}
@@ -71,12 +80,13 @@ abstract class GGASolution extends Solution {
 		  }
 
 		  private void exchange(int i, int j, Variable var[]) throws JMException {
-		    double temp = var[i].getValue();
-		    var[i].setValue(var[j].getValue());
-		    var[j].setValue(temp);
-		    int swap = permutation[i];
-		    permutation[i]=permutation[j];
-		    permutation[j]=swap;   
+			  PermInt variables [] = (PermInt [])var;
+		    double temp = variables[i].getValue();
+		    variables[i].setValue(variables[j].getValue());
+		    variables[j].setValue(temp);
+		    int swap = variables[i].getIndex();
+		    variables[i].setIndex(variables[j].getIndex());
+		    variables[j].setIndex(swap);   
 		  }
 		
 
@@ -87,18 +97,14 @@ abstract class GGASolution extends Solution {
 	
 	
 	public void print (){
-		for (int i=0;i<permutation.length;++i){
-			System.out.print(permutation[i] +" ");
+		PermInt var[]=(PermInt[])getDecisionVariables();
+		for (int i=0;i<var.length;++i){
+			System.out.print(var[i].getIndex() +" ");
 		}
 		System.out.println();
-		for (int i=0;i<permutation.length;++i){
-			Variable var[]=getDecisionVariables();
-			try {
+		for (int i=0;i<var.length;++i){
 				System.out.print(var[i].getValue() +" ");
-			} catch (JMException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		}
 	}
 	

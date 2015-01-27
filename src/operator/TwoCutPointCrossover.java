@@ -2,8 +2,9 @@ package operator;
 
 import java.util.HashMap;
 
+import core.GGASolution;
+
 import jmetal.core.Operator;
-import jmetal.core.Solution;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 
@@ -20,10 +21,13 @@ public class TwoCutPointCrossover extends Operator{
 	}
 	
 	private Object doCrossover(Object object){
-		GCASolution parents[]=(GCASolution[])object;
+		GGASolution parents[]=(GGASolution[])object;
 		if (parents.length < 2) {
 		      Configuration.logger_.severe("SinglePointCrossover.execute: operator " +
 		              "needs two parents");
+		              
+		}
+		return null;
 		      
 	}
 
