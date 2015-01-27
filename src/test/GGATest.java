@@ -7,16 +7,16 @@ import java.util.logging.FileHandler;
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.core.Problem;
+import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
 import jmetal.metaheuristics.nsgaII.NSGAII;
 import jmetal.metaheuristics.nsgaII.NSGAII_main;
 import jmetal.operators.crossover.UniformCrossover;
 import jmetal.operators.mutation.MyRebalanceMutation;
-import jmetal.operators.mutation.SwapMutation;
 import jmetal.operators.selection.SelectionFactory;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
-import core.GGASolution;
+import encodings.variable.PermInt;
 
 
 
@@ -47,7 +47,8 @@ public class GGATest extends NSGAII_main{
 			//crossover= new TwoCutPointsCrossover (parameters);
 			parameters.put("mutationProbability",
 					0.0 / problem.getNumberOfVariables());
-			mutation = new SwapMutation(parameters);
+			parameters.put("serverNumber", 6);
+			mutation = new MyRebalanceMutation(parameters);
 
 			parameters = null;
 			selection = SelectionFactory.getSelectionOperator("BinaryTournament",
@@ -58,9 +59,19 @@ public class GGATest extends NSGAII_main{
 			
 			
 			SolutionSet sol =algorithm.execute();
+			System.out.println(sol.size());
+			Solution s=sol.get(0);;
+			PermInt[] var=(PermInt[])s.getDecisionVariables();
+			 System.out.println(var.length);
+			for (int i=0;i<var.length;++i){
+				System.out.print(var[i].getIndex() +" ");
+			}
+			System.out.println();
+			for (int i=0;i<var.length;++i){
+					System.out.print((int)var[i].getValue() +" ");
+				
+			}
 			
-			GGASolution s= (GGASolution)sol.get(0);
-			s.print();
 			
 			
 			

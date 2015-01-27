@@ -2,8 +2,8 @@ package test;
 
 import jmetal.core.Problem;
 import jmetal.core.Solution;
-import jmetal.encodings.solutionType.IntSolutionType;
 import jmetal.util.JMException;
+import encodings.solutionType.PermIntSolutionType;
 
 
 public class GGAProblem extends Problem {
@@ -15,9 +15,10 @@ public class GGAProblem extends Problem {
 		numberOfObjectives_ = 1;
 		numberOfConstraints_ = 0;
 		problemName_ = "GGAProblem";
-		solutionType_ = new IntSolutionType(this);
+		solutionType_ = new PermIntSolutionType(this);
 		upperLimit_ = new double[numberOfVariables_];
 		lowerLimit_ = new double[numberOfVariables_];
+		 numberOfVariables_=15;
 		for (int i = 0; i < numberOfVariables_; ++i) {
 
 			upperLimit_[i] = 10;
@@ -29,8 +30,9 @@ public class GGAProblem extends Problem {
 	GGAProblem(int size, int min, int max){
 		numberOfObjectives_ = 1;
 		numberOfConstraints_ = 0;
+		numberOfVariables_=size;
 		problemName_ = "GGAProblem";
-		solutionType_ = new IntSolutionType(this);
+		solutionType_ = new PermIntSolutionType(this);
 		upperLimit_ = new double[numberOfVariables_];
 		lowerLimit_ = new double[numberOfVariables_];
 		for (int i = 0; i < numberOfVariables_; ++i) {
