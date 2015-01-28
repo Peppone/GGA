@@ -28,7 +28,7 @@ public class GGATest extends NSGAII_main{
 	public static Algorithm setup(Problem problem) {
 		Algorithm algorithm;
 		algorithm = new NSGAII(problem);
-		algorithm.setInputParameter("populationSize", 1000);
+		algorithm.setInputParameter("populationSize", 100);
 		algorithm.setInputParameter("maxEvaluations", 25000);
 		return algorithm;
 	}
@@ -43,9 +43,11 @@ public class GGATest extends NSGAII_main{
 			Operator crossover; // Crossover operator
 			Operator mutation; // Mutation operator
 			Operator selection; // Selection operator
-			HashMap<String, Object> parameters = new HashMap<String, Object>();
+			HashMap<String, Object> parameters  =new HashMap<String, Object>();
 			
 			parameters.put("crossoverProbability", 0.9);
+			parameters.put("problem",  problem);
+			parameters.put("solutionType", problem.getSolutionType());
 			//crossover = new UniformCrossover(parameters);
 			crossover= new HalfBalancingCrossover(parameters);
 			parameters.put("mutationProbability",
