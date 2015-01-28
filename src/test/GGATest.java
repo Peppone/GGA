@@ -16,6 +16,7 @@ import jmetal.operators.mutation.MyRebalanceMutation;
 import jmetal.operators.selection.SelectionFactory;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
+import core.GGASolution;
 import encodings.variable.PermInt;
 
 
@@ -59,18 +60,19 @@ public class GGATest extends NSGAII_main{
 			
 			
 			SolutionSet sol =algorithm.execute();
-			System.out.println(sol.size());
-			Solution s=sol.get(0);;
-			PermInt[] var=(PermInt[])s.getDecisionVariables();
-			 System.out.println(var.length);
-			for (int i=0;i<var.length;++i){
-				System.out.print(var[i].getIndex() +" ");
-			}
+		for (int i = 0; i < 1; i++) {
+
+			Solution s = sol.get(0);
+			PermInt[] var = (PermInt[]) s.getDecisionVariables();
+			GGASolution ggasol = new GGASolution(var);
+			ggasol.print();
+			ggasol.group(true);
 			System.out.println();
-			for (int i=0;i<var.length;++i){
-					System.out.print((int)var[i].getValue() +" ");
-				
-			}
+			ggasol.print();
+			ggasol.group(false);
+			System.out.println();
+			ggasol.print();
+		}
 			
 			
 			

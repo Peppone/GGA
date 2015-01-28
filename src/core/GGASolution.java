@@ -31,38 +31,48 @@ public class GGASolution extends Solution {
 		super(p);
 	}
 	
+	public GGASolution(PermInt[] var){
+		super();
+		setDecisionVariables(var);
+	}
 	
-	public void group(){
-		Variable[] var= (PermInt[])getDecisionVariables();
-		sort(var);
+	public void group(boolean values){
+		PermInt[] var= getDecisionVariables();
+		sort(var,values);
 		
 	}
 
-		  public void sort(Variable [] var) {
-		    // check for empty or null array
+	
+			public void sort(PermInt [] var, boolean orderValues) {
+			    // check for empty or null array
 		    if (var ==null || var.length==0){
 		      return;
 		    }
 		    try {
-				quicksort(0, var.length,var);
+				quicksort(0, var.length-1,var,orderValues);
 			} catch (JMException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		  }
 
-		  private void quicksort(int low, int high,Variable var[]) throws JMException {
+		  private void quicksort(int low, int high,PermInt var[],boolean orderValues) throws JMException {
 		    int i = low, j = high;
 		    // Get the pivot element from the middle of the list
-		    double pivot = var[low + (high-low)/2].getValue();
+		    
+		    double pivot;
+		    if(orderValues)
+		    	pivot= var[low + (high-low)/2].getValue();
+		    else
+		    	pivot=var[low+(high-low)/2].getIndex();
 
 		    // Divide into two lists
 		    while (i <= j) {
-		      while ((int)var[i].getValue() < pivot) {
+		      while (checkTerm(i,var,orderValues)< pivot) {
 		        i++;
 		      }
 
-		      while ((int)var[j].getValue() > pivot) {
+		      while (checkTerm(j,var,orderValues) > pivot) {
 		        j--;
 		      }
 
@@ -74,9 +84,17 @@ public class GGASolution extends Solution {
 		    }
 		    // Recursion
 		    if (low < j)
-		      quicksort(low, j,var);
+		      quicksort(low, j,var,orderValues);
 		    if (i < high)
-		      quicksort(i, high,var);
+		      quicksort(i, high,var, orderValues);
+		  }
+		  
+		  private double checkTerm (int index, PermInt[] var, boolean orderValues){
+			  if(orderValues)
+			  return var[index].getValue();
+			  else
+				  return var[index].getIndex();
+			  
 		  }
 
 		  private void exchange(int i, int j, Variable var[]) throws JMException {
@@ -90,7 +108,14 @@ public class GGASolution extends Solution {
 		  }
 		
 
-
+	public void setDecisionVariable(PermInt [] var){
+		super.setDecisionVariables(var);
+	}
+	
+	public PermInt[] getDecisionVariables(){
+		return (PermInt[])super.getDecisionVariables();
+	}
+	
 	public void setVariable (int index, Object ob){
 		
 	}
@@ -106,12 +131,13 @@ public class GGASolution extends Solution {
 				System.out.print(var[i].getValue() +" ");
 			
 		}
+		System.out.println();
 	}
 	
 	public Variable getPermutation(int index){
 		return getDecisionVariables()[index];
 	}
-	public void setPermutation(int index, Variable v){
+	public void setPermutation(int index, PermInt v){
 		getDecisionVariables()[index]=v;
 		return;
 	}
