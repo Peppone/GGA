@@ -80,6 +80,7 @@ public class GGASolution extends Solution {
 		        exchange(i, j,var);
 		        i++;
 		        j--;
+		    	
 		      }
 		    }
 		    // Recursion
@@ -107,7 +108,22 @@ public class GGASolution extends Solution {
 		    variables[j].setIndex(swap);   
 		  }
 		
-
+	public Double logSearch(int index){
+		PermInt var[]=getDecisionVariables();
+		int i=0;
+		int j=var.length-1;
+		if (var[i].getIndex()==index)return var[i].getValue();
+		if (var[j].getIndex()==index)return var[j].getValue();
+		while(j-i>0){
+			int pivot = (i+j)/2;
+			
+			int key=var[pivot].getIndex();
+			if(key==index)return var[pivot].getValue();
+			else if(key>index) j=pivot;
+			else i=pivot;
+		}
+		return null;
+	}
 	public void setDecisionVariable(PermInt [] var){
 		super.setDecisionVariables(var);
 	}

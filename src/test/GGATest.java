@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
 
+import operator.HalfBalancingCrossover;
+
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.core.Problem;
@@ -44,8 +46,8 @@ public class GGATest extends NSGAII_main{
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
 			
 			parameters.put("crossoverProbability", 0.9);
-			crossover = new UniformCrossover(parameters);
-			//crossover= new TwoCutPointsCrossover (parameters);
+			//crossover = new UniformCrossover(parameters);
+			crossover= new HalfBalancingCrossover(parameters);
 			parameters.put("mutationProbability",
 					0.0 / problem.getNumberOfVariables());
 			parameters.put("serverNumber", 6);
