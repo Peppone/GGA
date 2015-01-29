@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
 
-import operator.HalfBalancingCrossover;
-
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.core.Problem;
@@ -13,12 +11,11 @@ import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
 import jmetal.metaheuristics.nsgaII.NSGAII;
 import jmetal.metaheuristics.nsgaII.NSGAII_main;
-import jmetal.operators.crossover.UniformCrossover;
 import jmetal.operators.mutation.MyRebalanceMutation;
 import jmetal.operators.selection.SelectionFactory;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
-import core.GGASolution;
+import operator.MakespanAwareCrossover;
 import encodings.variable.PermInt;
 
 
@@ -49,7 +46,7 @@ public class GGATest extends NSGAII_main{
 			parameters.put("problem",  problem);
 			parameters.put("solutionType", problem.getSolutionType());
 			//crossover = new UniformCrossover(parameters);
-			crossover= new HalfBalancingCrossover(parameters);
+			crossover= new MakespanAwareCrossover(parameters);
 			parameters.put("mutationProbability",
 					0.0 / problem.getNumberOfVariables());
 			parameters.put("serverNumber", 6);
@@ -68,14 +65,7 @@ public class GGATest extends NSGAII_main{
 
 			Solution s = sol.get(0);
 			PermInt[] var = (PermInt[]) s.getDecisionVariables();
-			GGASolution ggasol = new GGASolution(var);
-			ggasol.print();
-			ggasol.group(true);
-			System.out.println();
-			ggasol.print();
-			ggasol.group(false);
-			System.out.println();
-			ggasol.print();
+			
 		}
 			
 			

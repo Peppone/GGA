@@ -16,23 +16,23 @@ public class PermIntSolutionType extends IntSolutionType{
 	 */
 
 	
-	public PermInt[] createVariables() {
-		PermInt[] variables = new PermInt[problem_.getNumberOfVariables()];
+	public Variable[] createVariables() {
+		Variable [] variables = new PermInt[problem_.getNumberOfVariables()];
 
 		for (int var = 0; var < problem_.getNumberOfVariables(); var++)
 			variables[var] = new PermInt((int)problem_.getLowerLimit(var),
 					(int)problem_.getUpperLimit(var),var);    
-
 		return variables ;
 	} // createVariables
+
 	
-	public PermInt[] copyVariables(PermInt[] vars){
-		PermInt[] variables ;
-		
-		variables = new PermInt[vars.length];
+	public Variable[] copyVariables(Variable[] vars){
+		Variable[] variables ;
+	
+		variables = new Variable[vars.length];
 
 		for (int var = 0; var < vars.length; var++) {
-			variables[var] = (PermInt) vars[var].deepCopy();
+			variables[var] = vars[var].deepCopy();
 		} // for
 		
 		return variables ;

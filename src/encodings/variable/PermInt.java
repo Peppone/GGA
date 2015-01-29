@@ -22,6 +22,12 @@ public class PermInt extends Int{
 		index=ind;
 	}
 	
+	public PermInt (PermInt p) throws JMException{
+		super(p);
+		index=p.index;
+		
+	}
+	
 	public PermInt(Variable variable, int index) throws JMException{
 		setLowerBound((int)variable.getLowerBound());
 		setUpperBound((int)variable.getUpperBound());
