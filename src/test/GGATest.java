@@ -16,6 +16,7 @@ import jmetal.operators.selection.SelectionFactory;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import operator.MakespanAwareCrossover;
+import encodings.variable.ArrayPermInt;
 import encodings.variable.PermInt;
 
 
@@ -64,7 +65,12 @@ public class GGATest extends NSGAII_main{
 		for (int i = 0; i < 1; i++) {
 
 			Solution s = sol.get(0);
-			PermInt[] var = (PermInt[]) s.getDecisionVariables();
+			ArrayPermInt sa =(ArrayPermInt) s.getDecisionVariables()[0];
+			sa.sortByValues();
+			sa.print();
+			sa.sortByKeys();
+			sa.print();
+			//PermInt[] var = (PermInt[]) sa.getDecisionVariables();
 			
 		}
 			
