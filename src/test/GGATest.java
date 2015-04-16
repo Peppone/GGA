@@ -15,9 +15,8 @@ import jmetal.operators.mutation.MyRebalanceMutation;
 import jmetal.operators.selection.SelectionFactory;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
-import operator.MakespanAwareCrossover;
+import operator.ProbabilisticCrossover;
 import encodings.variable.ArrayPermInt;
-import encodings.variable.PermInt;
 
 
 
@@ -46,11 +45,13 @@ public class GGATest extends NSGAII_main{
 			parameters.put("crossoverProbability", 0.9);
 			parameters.put("problem",  problem);
 			parameters.put("solutionType", problem.getSolutionType());
+			parameters.put("serverNumber", 6);
 			//crossover = new UniformCrossover(parameters);
-			crossover= new MakespanAwareCrossover(parameters);
+			//crossover= new MakespanAwareCrossover(parameters);
+			crossover= new ProbabilisticCrossover(parameters);
 			parameters.put("mutationProbability",
 					0.0 / problem.getNumberOfVariables());
-			parameters.put("serverNumber", 6);
+			
 			mutation = new MyRebalanceMutation(parameters);
 
 			parameters = null;
